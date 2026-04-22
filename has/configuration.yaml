@@ -1,0 +1,21 @@
+default_config:
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+mqtt:
+  binary_sensor:
+    - name: "Motion Sensor"
+      state_topic: "home/pi/motion"
+      payload_on: "on"
+      payload_off: "off"
+
+  sensor:
+    - name: "clips_json"
+      state_topic: "home/pi/clip"
+      value_template: "{{ value_json.clips[0].url }}"
+      json_attributes_topic: "home/pi/clip"
